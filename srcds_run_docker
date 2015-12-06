@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+SRCDS_DIR="/opt/steam/csgo"
+DEFAULT_MAP="de_dust"
+
+# setup the libraries, local dir first!
+export LD_LIBRARY_PATH="${SRCDS_DIR}:${SRCDS_DIR}/bin:${LD_LIBRARY_PATH}"  
+
+# if command starts with an option, prepend mysqld
+if test "${1:0:1}" = '-' -o "${1:0:1}" = '+'; then
+	set -- /opt/steam/csgo/srcds_linux "$@"
+fi
+
+if $(echo "$@" | grep -qv -- "-game csgo"); then
+	set -- "$@ -game csgo"
+fi
+
+if $(echo "$@" | grep -qv "+map [a-z_0-9]\+"); then
+	set -- "$@ +map $DEFAULT_MAP"
+fi
+
+cd /opt/steam/csgo
+
+exec "$@"
