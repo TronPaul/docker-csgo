@@ -14,7 +14,7 @@ To run the server with the *dangerous* default settings use:
 
     docker run -d -p 27015 -p 27015/udp tronpaul/csgo
 
-This will run a csgo server with the default competitive configuration, with
+This will run a csgo server with the default competitive configuration and with
 a rcon and server password of `changeme`. To run the server securely run it
 with something like:
 
